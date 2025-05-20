@@ -39,6 +39,11 @@ async function run() {
         res.send(result);
     })
 
+    app.get('/recipes', async(req , res) => {
+        const result = await recipeCollection.find().sort({likes : 1}).limit(6).toArray();
+        res.send(result);
+    })
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
