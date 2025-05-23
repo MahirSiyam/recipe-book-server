@@ -26,7 +26,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+
 
 
     const recipeCollection = client.db('recipeDB').collection('recipes')
@@ -49,11 +49,13 @@ async function run() {
 
     app.put('/recipes/:id' , async (req , res) => {
       const {id} = req.params;
-      const {photo , title , ingredients , instructions , cuisineType , prepTime , category , categories} = req.body;
+      const {name ,email, photo , title , ingredients , instructions , cuisineType , prepTime , category , categories} = req.body;
       const query = { _id: new ObjectId(id)};
 
       const updateData = {
         $set: {
+          name,
+          email,
           photo,  
           title,
           ingredients,
@@ -90,7 +92,8 @@ async function run() {
 
 
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+
+    // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     
